@@ -1,5 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bootstrap CRUD Data Table for Database with Modal Form</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 {% extends 'base.html' %}
 {% include 'header.html' %}
+
 
 
 {% block title %} Home {% endblock %}
@@ -8,59 +23,190 @@
 
 {% block body %}
 
-
 <div class="container">
-        <div class="row">
-            <div class="col md-12">
+    <div class="row">
+        <div class="col md-12">
 
-                 <div class="jumbotron p-3">
+            <div class="jumbotron p-3">
 
-                     <h2>Manage <b>Bookings </b> <button type="button" class="btn btn-success float-right"
-                     data-toggle="modal" data-target="#mymodal">Add New Booking</button> </h2>
-
-
+                <h2>Manage <b>Employees </b>  <button type="button"  class="btn btn-success float-right"
+                data-toggle="modal" data-target="#mymodal">Add New Booking</button> </h2>
 
 
-                     <table class="table table-hover table-dark">
+                {% with messages = get_flashed_messages() %}
 
-                         <tr>
+                {% if messages %}
 
-                             <th>ID</th>
-                             <th>NAME</th>
-                             <th>D.O.B</th>
-                             <th>LICENSE</th>
-                             <th>Action</th>
+                {% for message in messages %}
 
-                         <tr>
+                <div class="alert alert-success alert-dismissable" role="alert">
 
+                    <button type="button" class="close" data-dismiss="alert" aria-label="close">
 
+                        <span aria-hidden="true">x</span>
 
-                         <tr>
-                             <td>01</td>
-                             <td>Waqas</td>
-                             <td>24/07/1994</td>
-                             <td>100</td>
-
-                             <td>
-                                 <a href="" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modaledit">Edit</a>
-                                 <a href="" class="btn btn-danger btn-xs" onclick="return confirm ('Are You Sure You Want to Delete This Entry?')">Delete</a>
+                    </button>
 
 
-
-                             </td>
-
-
-                         </tr>
+                {{message}}
 
 
-                     </table>
+                </div>
+
+
+                {% endfor %}
+
+                {% endif %}
+                {% endwith %}
+
+
+                <table class="table table-hover table-dark">
+
+                    <tr>
+
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>D.O.B</th>
+                        <th>License</th>
+                        <th>Action</th>
+
+                    </tr>
+
+							<span class="custom-checkbox">
+								<input type="checkbox" id="checkbox1" name="options[]" value="1">
+								<label for="checkbox1"></label>
+							</span>
+						</td>
+                        <td>1</td>
+                        <td>Waqas Arqum</td>
+						<td>24/07/1994</td>
+                        <td>001</td>
+                        <td>
+                            <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                            <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                        </td>
+
+
+                </tbody>
+            </table>
+
+
+                   {% for row in employees %}
+                    <tr>
+                        <td>{{row.id}}</td>
+                        <td>{{row.Name}}</td>
+                        <td>{{row.D.O.B}}</td>
+                        <td>{{row.License}}</td>
+
+                        <td>
+                            <a href="/update/{{row.id}}" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modaledit{{row.id}}">Edit</a>
+                            <a href="/delete/{{row.id}}" class="btn btn-danger btn-xs" onclick="return confirm('Are You Sure To Delete ?')">Delete</a>
+
+
+                        </td>
+
+                    </tr>
+
+
+#Edit Bookings
+
+<div id="modaledit{{row.id}}" class="modal fade" role="dialog">
+   <div class="modal-dialog">
+
+
+      <div class="modal-content">
+
+
+         <div class="modal-header">
+
+
+            <h4 class="modal-title">Update Information</h4>
+
+
+         </div>
+
+
+         <div class="modal-body">
+
+
+            <form action="" method="POST">
+
+
+               <div class="form-group">
+
+
+                  <label>Name:</label>
+                   <input type="hidden"  name="id" value="{{row.id}}">
+
+                  <input type="text" class="form-control" name="name" value="{{row.name}}">
+
+
+               </div>
 
 
 
-                 </div>
+               <div class="form-group">
 
 
-                #imported template from bootstrap
+                  <label>D.O.B:</label>
+
+                  <input type="text" class="form-control" name="D.O.B" value="{{row.email}}">
+
+
+               </div>
+
+
+               <div class="form-group">
+
+
+                  <label>License:</label>
+
+                  <input type="text" class="form-control" name="License" value="{{row.phone}}">
+
+
+               </div>
+
+
+               <div class="form-group">
+
+
+                  <button class="btn btn-primary" type="submit">Update</button>
+
+
+               </div>
+
+
+            </form>
+
+
+         </div>
+
+
+         <div class="modal-footer">
+
+
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+
+         </div>
+
+
+      </div>
+
+
+   </div>
+
+</div>
+
+
+                    {% endfor %}
+
+
+                </table>
+
+
+            </div>
+
 
 
 <div id="mymodal" class="modal fade" role="dialog">
@@ -68,7 +214,7 @@
       <div class="modal-content">
          <div class="modal-header">
 
-            <h4 class="modal-title">Add New Booking</h4>
+            <h4 class="modal-title">Add Employee</h4>
          </div>
          <div class="modal-body">
 
@@ -77,14 +223,10 @@
 
                 <div class="form-group">
 
-                  <label>ID:</label>
-                  <input type="text" class="form-control" name="ID" required="1">
+                  <label>I.D:</label>
+                  <input type="text" class="form-control" name="I.D" required="1">
 
-
-               </div>
-
-
-               <div class="form-group">
+                <div class="form-group">
 
                   <label>Name:</label>
                   <input type="text" class="form-control" name="name" required="1">
@@ -97,7 +239,7 @@
 
 
                   <label>D.O.B:</label>
-                  <input type="D.O.B" class="form-control" name="email" required="1">
+                  <input type="D.O.B" class="form-control" name="D.O.B" required="1">
 
 
                </div>
@@ -107,7 +249,7 @@
 
 
                   <label>License:</label>
-                  <input type="License" class="form-control" name="phone" required="1">
+                  <input type="License" class="form-control" name="License" required="1">
 
 
                </div>
@@ -117,16 +259,45 @@
                <div class="form-group">
 
 
-                  <button class="btn btn-primary" type="submit">Add New Booking</button>
+                  <button class="btn btn-primary" type="submit">Add Booking</button>
+
+
+               </div>
+
+
+            </form>
+
+
+         </div>
+
+
+         <div class="modal-footer">
+
+
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+
+         </div>
+
+
+      </div>
+
+
+   </div>
+
+
+</div>
 
 
 
-            </div>
+
 
         </div>
 
+    </div>
 
 
+</div>
 
 
 {% endblock %}
