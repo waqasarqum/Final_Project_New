@@ -1,62 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Bootstrap CRUD Data Table for Database with Modal Form</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
-<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-{% extends 'base.html' %}
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 {% include 'header.html' %}
 
-
-
-{% block title %} Home {% endblock %}
-
-
-
-{% block body %}
-
+<body>
 <div class="container">
     <div class="row">
         <div class="col md-12">
 
             <div class="jumbotron p-3">
-
-                <h2>Manage <b>Employees </b>  <button type="button"  class="btn btn-success float-right"
-                data-toggle="modal" data-target="#mymodal">Add New Booking</button> </h2>
-
-
+                <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Booking</span></a>
+                <a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Delete</span></a>
                 {% with messages = get_flashed_messages() %}
 
-                {% if messages %}
+                    {% if messages %}
 
-                {% for message in messages %}
+                        {% for message in messages %}
 
-                <div class="alert alert-success alert-dismissable" role="alert">
+                            <div class="alert alert-success alert-dismissable" role="alert">
 
-                    <button type="button" class="close" data-dismiss="alert" aria-label="close">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="close">
 
-                        <span aria-hidden="true">x</span>
+                                    <span aria-hidden="true">x</span>
 
-                    </button>
-
-
-                {{message}}
+                                </button>
 
 
-                </div>
+                                {{message}}
 
 
-                {% endfor %}
+                            </div>
 
-                {% endif %}
+
+                        {% endfor %}
+
+                    {% endif %}
                 {% endwith %}
 
 
@@ -69,235 +57,146 @@
                         <th>D.O.B</th>
                         <th>License</th>
                         <th>Action</th>
-
                     </tr>
 
-							<span class="custom-checkbox">
-								<input type="checkbox" id="checkbox1" name="options[]" value="1">
-								<label for="checkbox1"></label>
-							</span>
-						</td>
-                        <td>1</td>
-                        <td>Waqas Arqum</td>
-						<td>24/07/1994</td>
-                        <td>001</td>
-                        <td>
-                            <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                            <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                        </td>
-
-
-                </tbody>
-            </table>
-
-
-                   {% for row in employees %}
-                    <tr>
-                        <td>{{row.id}}</td>
-                        <td>{{row.Name}}</td>
-                        <td>{{row.D.O.B}}</td>
-                        <td>{{row.License}}</td>
-
-                        <td>
-                            <a href="/update/{{row.id}}" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modaledit{{row.id}}">Edit</a>
-                            <a href="/delete/{{row.id}}" class="btn btn-danger btn-xs" onclick="return confirm('Are You Sure To Delete ?')">Delete</a>
-
-
-                        </td>
-
+                    </td>
+                    <td>1</td>
+                    <td>Waqas Arqum</td>
+                    <td>24/07/1994</td>
+                    <td>001</td>
+                    <td>
+                        <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                        <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                    </td>
                     </tr>
 
+                    </td>
+                    <td>2</td>
+                    <td>Earl Grey</td>
+                    <td>25/12/0001</td>
+                    <td>002</td>
+                    <td>
+                        <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                        <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                    </td>
+                    </tr>
 
-#Edit Bookings
+                     </td>
+                    <td>3</td>
+                    <td>Luke Skywalker</td>
+                    <td>01/01/1900</td>
+                    <td>003</td>
+                    <td>
+                        <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                        <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                    </td>
+                    </tr>
 
-<div id="modaledit{{row.id}}" class="modal fade" role="dialog">
-   <div class="modal-dialog">
-
-
-      <div class="modal-content">
-
-
-         <div class="modal-header">
-
-
-            <h4 class="modal-title">Update Information</h4>
-
-
-         </div>
-
-
-         <div class="modal-body">
-
-
-            <form action="" method="POST">
-
-
-               <div class="form-group">
-
-
-                  <label>Name:</label>
-                   <input type="hidden"  name="id" value="{{row.id}}">
-
-                  <input type="text" class="form-control" name="name" value="{{row.name}}">
-
-
-               </div>
-
-
-
-               <div class="form-group">
-
-
-                  <label>D.O.B:</label>
-
-                  <input type="text" class="form-control" name="D.O.B" value="{{row.email}}">
-
-
-               </div>
-
-
-               <div class="form-group">
-
-
-                  <label>License:</label>
-
-                  <input type="text" class="form-control" name="License" value="{{row.phone}}">
-
-
-               </div>
-
-
-               <div class="form-group">
-
-
-                  <button class="btn btn-primary" type="submit">Update</button>
-
-
-               </div>
-
-
-            </form>
-
-
-         </div>
-
-
-         <div class="modal-footer">
-
-
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-
-
-         </div>
-
-
-      </div>
-
-
-   </div>
-
-</div>
-
-
-                    {% endfor %}
+                     </td>
+                    <td>4</td>
+                    <td>Al Pacino</td>
+                    <td>25/04/1940</td>
+                    <td>004</td>
+                    <td>
+                        <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                        <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                    </td>
+                    </tr>
 
 
                 </table>
 
-
-            </div>
-
-
-
-<div id="mymodal" class="modal fade" role="dialog">
-   <div class="modal-dialog">
+                <!-- Edit Modal HTML Imported From Bootstrap -->
+                <div id="addEmployeeModal" class="modal fade">
+    <div class="modal-dialog">
       <div class="modal-content">
-         <div class="modal-header">
-
-            <h4 class="modal-title">Add Employee</h4>
-         </div>
-         <div class="modal-body">
-
-            <form action="" method="POST">
-
-
-                <div class="form-group">
-
-                  <label>I.D:</label>
-                  <input type="text" class="form-control" name="I.D" required="1">
-
-                <div class="form-group">
-
-                  <label>Name:</label>
-                  <input type="text" class="form-control" name="name" required="1">
-
-
-               </div>
-
-
-                <div class="form-group">
-
-
-                  <label>D.O.B:</label>
-                  <input type="D.O.B" class="form-control" name="D.O.B" required="1">
-
-
-               </div>
-
-
-                <div class="form-group">
-
-
-                  <label>License:</label>
-                  <input type="License" class="form-control" name="License" required="1">
-
-
-               </div>
-
-
-
-               <div class="form-group">
-
-
-                  <button class="btn btn-primary" type="submit">Add Booking</button>
-
-
-               </div>
-
-
-            </form>
-
-
-         </div>
-
-
-         <div class="modal-footer">
-
-
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-
-
-         </div>
-
-
+        <form>
+          <div class="modal-header">
+            <h4 class="modal-title">Add New Booking</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label>I.D</label>
+              <input type="text" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label>Name</label>
+              <input type="Name" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label>D.O.B</label>
+              <textarea class="form-control" required></textarea>
+            </div>
+            <div class="form-group">
+              <label>License</label>
+              <input type="text" class="form-control" required>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+            <input type="submit" class="btn btn-success" value="Add">
+          </div>
+        </form>
       </div>
-
-
-   </div>
-
-
-</div>
-
-
-
-
-
-        </div>
-
     </div>
+  </div>
 
+                <!-- Edit Modal HTML Imported From Bootstrap -->
+                <div id="editEmployeeModal" class="modal fade">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <form>
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Edit Booking</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label>I.D</label>
+                                        <input type="text" class="form-control" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Name</label>
+                                        <input type="Name" class="form-control" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>D.O.B</label>
+                                        <textarea class="form-control" required></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>License</label>
+                                        <input type="text" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                                    <input type="submit" class="btn btn-info" value="Save">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
 
-</div>
-
-
-{% endblock %}
+                <!-- Delete Modal HTML Imported From Bootstrap -->
+                <div id="deleteEmployeeModal" class="modal fade">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <form>
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Delete Booking</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Are you sure you want to delete these Records?</p>
+                                    <p class="text-warning"><small>This action cannot be undone.</small></p>
+                                </div>
+                                <div class="modal-footer">
+                                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                                    <input type="submit" class="btn btn-danger" value="Delete">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+</body>
