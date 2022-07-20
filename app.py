@@ -1,10 +1,10 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 app.secret_key = "Secret Key"
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:''@localhost/crud'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///crud.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
@@ -13,7 +13,6 @@ class Data(db.Model):
     id = db.Column (db.Integer, primary_key = True)
     name = db.Column (db.String(100))
     bday = db.Column (db.DateTime)
-    license = db.Column (db.Integer)
 
     def __init__(self, name, bday, license):
         self.name = name
